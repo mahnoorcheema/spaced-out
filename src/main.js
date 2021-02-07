@@ -1,5 +1,5 @@
 require('dotenv').config()
-const SpotifyClient = require("./SpotifyClient");
+const SpotifyClient = require("./helpers/SpotifyClient");
 
 const main = async () => {
     const spotify = new SpotifyClient();
