@@ -7,7 +7,7 @@ const spotify = new SpotifyClient();
 app.get("/artist", async (request, response) => {
     try {
         const { name } = request.query;
-    response.send(await spotify.searchForArtist(name))
+        response.send(await spotify.searchForArtist(name))
     } catch(error){
         console.error("Failed to get artist", error)
         response.status(500).send({message: "Unknown error"});

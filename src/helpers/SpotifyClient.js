@@ -2,13 +2,14 @@ const btoa = require("btoa");
 const fetch = require("node-fetch");
 
 
+
 class SpotifyClient {
     static BASE_URL = `https://api.spotify.com`
-    authToken = null;
+    static EXPIRY_BUFFER = 1000;
     
-    constructor() { 
-
-    }
+    authToken = null;
+    expiresAt = -Infinity;
+    tokenRefreshPromise = null;
 
     async getAuthToken ({
         grantType = process.env.GRANT_TYPE,
@@ -30,14 +31,22 @@ class SpotifyClient {
     }
     
     isTokenExpired() {
-        // Todo: track expiry time
-        return !this.authToken
+        return !this.authToken || this.expiresAt < Date.now();
     }
 
     async updateAccessToken() {
-        // Todo: track expiry time
-        const {access_token} = await this.getAuthToken()
-        this.authToken = access_token;
+        if (this.tokenRefreshPromise) {
+            return await this.tokenRefreshPromise;
+        }
+        
+        this.tokenRefreshPromise = this.getAuthToken()
+            .then(({ access_token: accessToken, expires_in: expiresInSeconds }) => { 
+                this.authToken = accessToken;
+                this.expiresAt = expiresInSeconds * 1000 + Date.now() + SpotifyClient.EXPIRY_BUFFER;
+            });
+        
+        await this.tokenRefreshPromise;
+        this.tokenRefreshPromise = null;
     }
 
     
