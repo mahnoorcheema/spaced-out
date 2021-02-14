@@ -1,0 +1,47 @@
+{
+  "name": "spaced-out",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.7.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.2",
+    "web-vitals": "^1.1.0",
+    "btoa": "^1.2.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.7",
+    "concurrently": "5.3.0"
+  },
+  "scripts": {
+    "dev-client": "react-scripts start",
+    "build-client": "react-scripts build",
+    "test-client": "react-scripts test",
+    "dev-server": "nodemon server/server.js",
+    "start-server": "node server/server.js",
+    "dev": "concurrently npm:dev-*"
+  },
+  "proxy": "http://localhost:8080",
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
