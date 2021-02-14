@@ -10,7 +10,7 @@ const App = () => {
 
   return <div>
     <ArtistSearch onArtistFound={setArtist} />
-    {artist && <ArtistSummary artist={artist}/>}
+    {artist && <ArtistSummary key={artist.id} artist={artist}/>}
     
   </div>
 }
