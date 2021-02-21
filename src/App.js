@@ -1,18 +1,19 @@
 import React, { useState } from 'react'
 import ArtistSearch from "./components/ArtistSearch";
 import ArtistSummary from "./components/ArtistSummary";
+import {SeenArtistsContextProvider}  from "./contexts/SeenArtistsContext"
 import './App.css';
 
 
 const App = () => {
+  const [searchedArtist, setSearchedArtist] = useState(null);
 
-  const [artist, setArtist] = useState(null);
-
-  return <div>
-    <ArtistSearch onArtistFound={setArtist} />
-    {artist && <ArtistSummary key={artist.id} artist={artist}/>}
-    
-  </div>
+  return <SeenArtistsContextProvider initialArtists={searchedArtist ? [searchedArtist] : []}>
+    <div className="div--content">
+      <ArtistSearch onArtistFound={setSearchedArtist} />
+      {searchedArtist && <ArtistSummary key={searchedArtist.id} artist={searchedArtist}/>} 
+    </div>
+  </SeenArtistsContextProvider>
 }
   
 
