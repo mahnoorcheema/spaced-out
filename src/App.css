@@ -1,0 +1,102 @@
+:root {
+    --bg: grey;
+}
+
+button:enabled {
+    cursor: pointer;
+}
+
+body, input, button {
+    font-family: 'Space Mono', monospace;
+}
+
+*:focus {
+    outline: none;
+    box-shadow: 0 0 0 .25rem hotpink;
+}
+
+h3 {
+    margin-bottom: 0;
+}
+.ul--liststyle {
+    list-style-type: none;
+}
+
+.p--margin {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 1em;
+    font-size: xx-large;
+}
+
+.div--display__flex {
+    display: flex;
+    flex-direction: row;
+    padding-top: 1em;
+    padding-left: 1.5em;
+    align-items: center;
+    margin-bottom: 1em;
+    /* background-color: red; */
+} 
+
+.div--color {
+    /* background-color: rgba(64,98,128, .2) */
+    background-color: var(--bg);
+    /* opacity: 0.2; */
+}
+
+.div--content {
+    margin-top: 2.5em;
+}
+
+.h3--related_artists {
+    background-color: var(--bg);
+    display: inline;
+    border-radius: 10px 10px 0  0;
+    padding: 0 0.5em;
+}
+
+.img--style__circle {
+    border-radius: 50%;
+    /* height: fit-content; */
+    /* min-width: 50px;
+    min-height: 50px; */
+    max-width: 7rem;
+    max-height: 7rem;
+    object-fit: cover;
+    border: 0.25em solid black;
+}
+
+.form--searchbar {
+    /* margin-top: 0; */
+    padding-top: 0.5em;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+.btn--searchbar {
+    border-radius: 0 50px 50px 0;
+    border: 0.25em solid black;
+    color:white;
+    background-color: black;
+    padding: 0.25em;
+}
+
+.input--searchbar {
+    border-radius: 50px 0 0 50px;
+    border: 0.25em solid black;
+    padding: 0.25em;
+}
+
+.btn--related_artists {
+    border: none;
+    color: white;
+    background-color: black;
+    border-radius: 1000px;
+    margin-left: 1em;
+    margin-top: 0.5em;
+    padding: 0.25em 0.5em;
+
+}
