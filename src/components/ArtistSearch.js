@@ -1,14 +1,6 @@
 import React, {useState} from "react";
 import { getArtist } from "../helpers/api-helpers";
 
-const getRandomColour = () => {
-    const colours = ["#03003559", "#03F06543", "#032FBF71"]
-    const randomColour = colours[Math.floor(Math.random() * colours.length)]
-    console.log(randomColour)
-    document.body.style.setProperty('--bg', randomColour)
-}
-
-
 const ArtistSearch = ({onArtistFound}) => {
     const [artistQuery, setArtistQuery] = useState("");
     const [searchResults, setSearchResults] = useState(null);
@@ -21,7 +13,6 @@ const ArtistSearch = ({onArtistFound}) => {
 
     const handleSubmit = async event => {
         event.preventDefault();
-        getRandomColour();
         const artists = await getArtist(artistQuery);
         if (artists.length === 1) { 
             handleSelectArtist(artists[0]);
