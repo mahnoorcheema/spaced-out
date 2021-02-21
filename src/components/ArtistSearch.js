@@ -11,11 +11,23 @@ const getRandomColour = () => {
 
 const ArtistSearch = ({onArtistFound}) => {
     const [artistQuery, setArtistQuery] = useState("");
-    const [searchResults, setSearchResults] = useState(null)
+    const [searchResults, setSearchResults] = useState(null);
+
+    const handleSelectArtist = (artist) => {
+        setArtistQuery(artist.name);
+        onArtistFound(artist);
+        setSearchResults(null);
+    };
+
     const handleSubmit = async event => {
-        event.preventDefault()
-        getRandomColour()
-        setSearchResults(await getArtist(artistQuery))
+        event.preventDefault();
+        getRandomColour();
+        const artists = await getArtist(artistQuery);
+        if (artists.length === 1) { 
+            handleSelectArtist(artists[0]);
+        } else {
+            setSearchResults(artists);
+        }
     };
     return (
         <div>
@@ -35,11 +47,7 @@ const ArtistSearch = ({onArtistFound}) => {
             </form>
             <ul>
                 {searchResults?.map(artist => <li key={artist.id}>
-                    <button onClick={() => {
-                        setArtistQuery(artist.name);
-                        onArtistFound(artist)
-                        setSearchResults(null);
-                    }}>{artist.name}</button>
+                    <button onClick={() => handleSelectArtist(artist)}>{artist.name}</button>
                 </li>)}
             </ul>
             {searchResults?.length === 0 && <p>No results found</p>}
