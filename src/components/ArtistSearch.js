@@ -1,28 +1,43 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { getArtist } from "../helpers/api-helpers";
+import useDebouncedState from "../hooks/useDebouncedState"
 
-const ArtistSearch = ({onArtistFound}) => {
-    const [artistQuery, setArtistQuery] = useState("");
+const noCleanup = () => { };
+
+const ArtistSearch = ({ onArtistFound }) => {
+    const [artistQueryDraft, setArtistQueryDraft] = useState("");
+    const [artistQuery, setArtistQueryDebounced, setArtistQueryImmediate] = useDebouncedState("", 500);
     const [searchResults, setSearchResults] = useState(null);
 
+    useEffect(() => {
+        if (!artistQuery.trim()) return noCleanup;
+        
+        let isDisconnected = false;
+        getArtist(artistQuery).then(artists => {
+            if (isDisconnected) return;
+
+            if (artists.length === 1)
+                handleSelectArtist(artists[0]);
+            else
+                setSearchResults(artists.slice(0, 7));
+        });
+        return () => isDisconnected = true;
+    }, [artistQuery])
+
     const handleSelectArtist = (artist) => {
-        setArtistQuery(artist.name);
+        setArtistQueryDraft(artist.name);
         onArtistFound(artist);
         setSearchResults(null);
     };
 
-    const handleSubmit = async event => {
-        event.preventDefault();
-        const artists = await getArtist(artistQuery);
-        if (artists.length === 1) { 
-            handleSelectArtist(artists[0]);
-        } else {
-            setSearchResults(artists);
-        }
-    };
     return (
         <div>
-            <form className="form--searchbar"onSubmit={handleSubmit}>
+            <form
+                className="form--searchbar" 
+                onSubmit={event => {
+                    event.preventDefault();
+                    setArtistQueryImmediate(artistQueryDraft);
+                }}>
                 <label>
                     Start Artist:&nbsp; 
                     <input
@@ -30,17 +45,23 @@ const ArtistSearch = ({onArtistFound}) => {
                         className="input--searchbar"
                         type="text"
                         name="name"
-                        placeholder="eg. Grimes" 
-                        value={artistQuery}
-                        onChange={(event) => setArtistQuery(event.currentTarget.value)}/>
+                        placeholder="eg. Grimes"
+                        value={artistQueryDraft}
+                        onChange={(event) => {
+                            const { value } = event.currentTarget;
+                            setArtistQueryDraft(value);
+                            setArtistQueryDebounced(value);
+                        }}
+                        onBlur={(event) => setArtistQueryImmediate(event.currentTarget.value)}
+                    />
                 </label>
                 <button className="btn--searchbar" type="submit">Search!</button>
             </form>
-            <ul>
+            <ol>
                 {searchResults?.map(artist => <li key={artist.id}>
-                    <button onClick={() => handleSelectArtist(artist)}>{artist.name}</button>
+                    <button className="btn--related_artists" onClick={() => handleSelectArtist(artist)}>{artist.name}</button>
                 </li>)}
-            </ul>
+            </ol>
             {searchResults?.length === 0 && <p>No results found</p>}
         </div>
     );
