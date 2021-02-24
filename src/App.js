@@ -6,7 +6,7 @@ import './App.css';
 
 
 const getRandomColor = () => {
-  const colors = ["#03003559", "#03F06543", "#032FBF71"];
+  const colors = ["#03003559", "#03F06543", "#032FBF71", "031B3B6F"];
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
@@ -18,7 +18,7 @@ const App = () => {
   }, [searchedArtist])
 
   return <SeenArtistsContextProvider initialArtists={searchedArtist ? [searchedArtist] : []}>
-    <div className="div--content" style={{"--bg": backgroundColor}}>
+    <div className="app--content" style={{"--bg": backgroundColor}}>
       <ArtistSearch onArtistFound={setSearchedArtist} />
       {searchedArtist && <ArtistSummary key={searchedArtist.id} artist={searchedArtist}/>} 
     </div>

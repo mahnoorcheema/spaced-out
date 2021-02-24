@@ -33,7 +33,7 @@ const ArtistSearch = ({ onArtistFound }) => {
     return (
         <div>
             <form
-                className="form--searchbar" 
+                className="searchbar" 
                 onSubmit={event => {
                     event.preventDefault();
                     setArtistQueryImmediate(artistQueryDraft);
@@ -42,7 +42,7 @@ const ArtistSearch = ({ onArtistFound }) => {
                     Start Artist:&nbsp; 
                     <input
                         required
-                        className="input--searchbar"
+                        className="searchbar--input"
                         type="text"
                         name="name"
                         placeholder="eg. Grimes"
@@ -55,11 +55,11 @@ const ArtistSearch = ({ onArtistFound }) => {
                         onBlur={(event) => setArtistQueryImmediate(event.currentTarget.value)}
                     />
                 </label>
-                <button className="btn--searchbar" type="submit">Search!</button>
+                <button className="searchbar--btn" type="submit">Search!</button>
             </form>
             <ol>
                 {searchResults?.map(artist => <li key={artist.id}>
-                    <button className="btn--related_artists" onClick={() => handleSelectArtist(artist)}>{artist.name}</button>
+                    <button className="related_artists--btn" onClick={() => handleSelectArtist(artist)}>{artist.name}</button>
                 </li>)}
             </ol>
             {searchResults?.length === 0 && <p>No results found</p>}

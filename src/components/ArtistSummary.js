@@ -30,16 +30,16 @@ const ArtistSummary = ({ artist }) => {
     const smallestImage = getSmallestImage(artist.images);
     
     return (
-        <div id="tree" className="div--color">
-            <div className="div--display__flex">
-                {smallestImage && <img className="img--style__circle" src={smallestImage.url} alt=""/>}
-                <p className="p--margin">{artist.name}</p>
+        <div id="tree" className="background-color">
+            <div className="artist-summary">
+                {smallestImage && <img className="artist-summary--img__circle" src={smallestImage.url} alt=""/>}
+                <p className="artist-summary--p__margin">{artist.name}</p>
             </div>
             
             {relatedArtists
                 ? <> 
-                    <ul className="ul--liststyle">
-                        <h3 className="h3--related_artists">
+                    <ul className="related-artists--ul__style">
+                        <h3 className="related-artists--h3">
                             Related Artists to {artist.name} ({relatedArtists.length})
                         </h3>
                       {relatedArtists.map(artist => (
@@ -47,7 +47,7 @@ const ArtistSummary = ({ artist }) => {
                       ))}  
                     </ul>
                 </>
-                : <button className="btn--related_artists" onClick={handleGetRelatedArtists}>
+                : <button className="related_artists--btn" onClick={handleGetRelatedArtists}>
                     Get Related Artists
                 </button>
             }
