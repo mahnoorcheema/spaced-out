@@ -31,35 +31,34 @@ const ArtistSearch = ({ onArtistFound }) => {
     };
 
     return (
-        <div>
+        <div className="searchbar--container">
             <form
                 className="searchbar" 
                 onSubmit={event => {
                     event.preventDefault();
                     setArtistQueryImmediate(artistQueryDraft);
                 }}>
-                <label>
-                    Start Artist:&nbsp; 
-                    <input
-                        required
-                        className="searchbar--input"
-                        type="text"
-                        name="name"
-                        placeholder="eg. Grimes"
-                        value={artistQueryDraft}
-                        onChange={(event) => {
-                            const { value } = event.currentTarget;
-                            setArtistQueryDraft(value);
-                            setArtistQueryDebounced(value);
-                        }}
-                        onBlur={(event) => setArtistQueryImmediate(event.currentTarget.value)}
-                    />
-                </label>
-                <button className="searchbar--btn" type="submit">Search!</button>
+        
+                <input
+                    required
+                    className="searchbar--input"
+                    type="text"
+                    name="name"
+                    placeholder="eg. Grimes"
+                    value={artistQueryDraft}
+                    aria-label="search for artist"
+                    onChange={(event) => {
+                        const { value } = event.currentTarget;
+                        setArtistQueryDraft(value);
+                        setArtistQueryDebounced(value);
+                    }}
+                    onBlur={(event) => setArtistQueryImmediate(event.currentTarget.value)}
+                />
+                <button className="searchbar--btn fas fa-search" type="submit" aria-label="submit search"></button>
             </form>
-            <ol>
+            <ol className="searchbar-suggestions--ol">
                 {searchResults?.map(artist => <li key={artist.id}>
-                    <button className="related_artists--btn" onClick={() => handleSelectArtist(artist)}>{artist.name}</button>
+                    <button className="searchbar-suggestions--button" onClick={() => handleSelectArtist(artist)}>{artist.name}</button>
                 </li>)}
             </ol>
             {searchResults?.length === 0 && <p>No results found</p>}

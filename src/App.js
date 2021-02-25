@@ -6,7 +6,7 @@ import './App.css';
 
 
 const getRandomColor = () => {
-  const colors = ["#03003559", "#03F06543", "#032FBF71", "031B3B6F"];
+  const colors = ["#03003559", "#03F06543", "#032FBF71", "#031B3B6F"];
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
