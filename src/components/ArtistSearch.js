@@ -6,7 +6,7 @@ const noCleanup = () => { };
 
 const ArtistSearch = ({ onArtistFound }) => {
     const [artistQueryDraft, setArtistQueryDraft] = useState("");
-    const [artistQuery, setArtistQueryDebounced, setArtistQueryImmediate] = useDebouncedState("", 500);
+    const [artistQuery, setArtistQueryDebounced, setArtistQueryImmediate] = useDebouncedState("", 100);
     const [searchResults, setSearchResults] = useState(null);
 
     useEffect(() => {
@@ -37,6 +37,9 @@ const ArtistSearch = ({ onArtistFound }) => {
                 onSubmit={event => {
                     event.preventDefault();
                     setArtistQueryImmediate(artistQueryDraft);
+                    if (searchResults?.length > 0) {
+                        handleSelectArtist(searchResults[0])
+                    }
                 }}>
         
                 <input
@@ -44,6 +47,7 @@ const ArtistSearch = ({ onArtistFound }) => {
                     className="searchbar--input"
                     type="text"
                     name="name"
+                    autoComplete="off"
                     placeholder="eg. Grimes"
                     value={artistQueryDraft}
                     aria-label="search for artist"
@@ -56,12 +60,17 @@ const ArtistSearch = ({ onArtistFound }) => {
                 />
                 <button className="searchbar--btn fas fa-search" type="submit" aria-label="submit search"></button>
             </form>
+            <div className="searchbar-no-results">
+                {searchResults?.length === 0 && <p>No results found</p>}
+            </div>
             <ol className="searchbar-suggestions--ol">
                 {searchResults?.map(artist => <li key={artist.id}>
-                    <button className="searchbar-suggestions--button" onClick={() => handleSelectArtist(artist)}>{artist.name}</button>
+                    <button className="searchbar-suggestions--button" onClick={() => handleSelectArtist(artist)}>
+                        {artist.images[0] && <img className="searchbar-suggestions--img__circle" src={artist.images[0].url}></img>}
+                        <div className="searchbar-suggestions--artistname">{artist.name}</div>
+                    </button>
                 </li>)}
             </ol>
-            {searchResults?.length === 0 && <p>No results found</p>}
         </div>
     );
 }

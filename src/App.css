@@ -42,11 +42,19 @@ h3 {
 .related_artists--btn {
     border: none;
     color: white;
-    background-color: black;
+    background: linear-gradient(135deg, #000000 0%, #434343 100%);
     border-radius: 1000px;
     margin-left: 1em;
     margin-top: 0.5em;
     padding: 0.25em 0.5em;
+    transition: all 0.3s ease-in-out;
+}
+
+.related_artists--btn:hover,
+.related_artists--btn:focus {
+    outline: none;
+    transform: scale(1.1);
+    background: linear-gradient(135deg, #414345 25%, #000000 100%);
 }
 
 .artist-summary {
@@ -67,11 +75,13 @@ h3 {
 
 .artist-summary--img__circle {
     border-radius: 50%;
-    max-width: 7rem;
-    max-height: 7rem;
     object-fit: cover;
+    width: 7rem;
+    height: 7rem;
     border: 0.25em solid black;
 }
+
+
 
 /* .searchbar {
     padding-top: 0.5em;
@@ -145,7 +155,7 @@ h3 {
 
 .searchbar:focus-within {
     width: 100%;
-    background-color: black;
+    background: linear-gradient(to right, #232526, #414345);
     
 }
 
@@ -165,7 +175,7 @@ h3 {
     cursor: initial;
     width: calc(100% - 2*var(--size));
     border-radius: 100vh;
-    color: white;
+    color: mediumaquamarine;
 }
 
 .searchbar--container {
@@ -182,13 +192,50 @@ h3 {
 }
 
 .searchbar-suggestions--button {
-   background: var(--bg);
+   display: flex;
+   position: relative;
    border: none;
    color: black;
-   border-radius: 1000px;
-   margin-left: 1em;
-   margin-top: 0.5em;
-   padding: 0.25em 0.5em;
+   border-radius: 100vh;
+   padding: 0;
+   transition: all 0.3s ease-in-out;
+   text-align: center;
+   overflow: hidden;
+}
+
+.searchbar-suggestions--button:focus,
+.searchbar-suggestions--button:hover {
+    outline:none;
+    transform: scale(1.1);
+}
+
+.searchbar-suggestions--img__circle {
+    filter: grayscale(100%);
+    transition: filter .5s ease-in-out;
+    border-radius: 50%;
+    object-fit: cover;
+    width: 7rem;
+    height: 7rem;
+    opacity: 0.6;
+    overflow: hidden;
+    border: black solid 0.4em;
+}
+
+.searchbar-suggestions--button:focus .searchbar-suggestions--img__circle,
+.searchbar-suggestions--button:hover .searchbar-suggestions--img__circle{
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+.searchbar-suggestions--artistname {
+    position: absolute;
+    font-size: large;
+    color: black;
+    background-color: rgba(255, 0, 106, 0.5);
+    padding: 0.25em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 
 }
 
@@ -197,7 +244,10 @@ h3 {
     justify-content: space-evenly;
 }
 
-/* .searchbar-suggestions--ol > li {
-    background-color: green;
-    margin: 1em;
-} */
+.searchbar-no-results {
+    opacity: 0;
+}
+
+.searchbar--container:focus-within .searchbar-no-results {
+    opacity: 1;
+}
