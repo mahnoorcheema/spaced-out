@@ -66,11 +66,20 @@ h3 {
     margin-bottom: 1em;
 } 
 
-.artist-summary--p__margin {
+.artist-summary--details {
     margin-top: 0;
     margin-bottom: 0;
     margin-left: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.artist-summary--title {
     font-size: xx-large;
+    margin: 0;
+    margin-left: 0.7em;
 }
 
 .artist-summary--img__circle {
@@ -175,13 +184,14 @@ h3 {
     cursor: initial;
     width: calc(100% - 2*var(--size));
     border-radius: 100vh;
-    color: mediumaquamarine;
+    color: palegreen;
 }
 
 .searchbar--container {
     padding: 0 1em;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 .searchbar-suggestions--ol {
@@ -250,4 +260,38 @@ h3 {
 
 .searchbar--container:focus-within .searchbar-no-results {
     opacity: 1;
+}
+
+.album {
+    display: flex;
+    flex-direction: row;
+    background-color:  rgba(255, 0, 106, 0.5);;
+    align-items: center;
+    padding: 0 1em;
+    border-radius: 100vh;
+    color: white;
+
+}
+
+.album--image {
+    width: 3em;
+    height: 3em;
+    margin: 0.5em; 
+}
+
+.album--p {
+    margin: 0;
+
+}
+
+.album--p__song-name {
+    font-size: medium;
+
+}
+
+.album--p__album-name {
+    font-size: smaller;
+    font-style: italic;
+    color: palegreen
+
 }
