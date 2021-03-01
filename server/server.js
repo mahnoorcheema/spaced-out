@@ -1,6 +1,7 @@
 require("dotenv").config()
 const SpotifyClient = require("./helpers/SpotifyClient");
-const express = require("express")
+const express = require("express");
+const { request, response } = require("express");
 const app = express()
 const spotify = new SpotifyClient();
 
@@ -42,6 +43,21 @@ apiRouter.get("/related/:artistId", async (request, response) => {
         return response.status(500).send({ error: "Unknown error" });
     }
 });
+
+apiRouter.get("/featured-artists/:artistId", async(request, response) => {
+    try {
+        const { artistId } = request.params;
+        if (!artistId)
+            return response.status(422).send({ error: "No artist entered"});
+        
+        return response.send(await spotify.getFeaturedArtists(artistId));
+    } catch (error) {
+        console.error("Failed to get artists", error.message);
+        return response.status(500).send({ error: "Unknown error" });
+    }
+})
+
+
 
 app.use("/api", apiRouter);
 
