@@ -66,7 +66,7 @@ const ArtistSearch = ({ onArtistFound }) => {
             <ol className="searchbar-suggestions--ol">
                 {searchResults?.map(artist => <li key={artist.id}>
                     <button className="searchbar-suggestions--button" onClick={() => handleSelectArtist(artist)}>
-                        {artist.images[0] && <img className="searchbar-suggestions--img__circle" src={artist.images[0].url}></img>}
+                        {artist.images[0] ? <img className="searchbar-suggestions--img__circle" src={artist.images[0].url}></img> : <div className="searchbar-suggestions--img__circle circle"></div>}
                         <div className="searchbar-suggestions--artistname">{artist.name}</div>
                     </button>
                 </li>)}

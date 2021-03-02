@@ -36,7 +36,7 @@ const ArtistSummary = ({ artist, connectedTracks }) => {
     return (
         <div id="tree" className="background-color">
             <div className="artist-summary">
-                {smallestImage && <img className="artist-summary--img__circle" src={smallestImage.url} alt=""/>}
+                {smallestImage ? <img className="artist-summary--img__circle" src={smallestImage.url} alt=""/> : <div className="circle"></div>}
                 <div className="artist-summary--details">
                     <p className="artist-summary--title">{artist.name}</p>
                     <div className="album">

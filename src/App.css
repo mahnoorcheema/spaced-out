@@ -30,6 +30,8 @@ h3 {
 
 .related-artists--ul__style {
     list-style-type: none;
+    margin-top: 0;
+    padding: 1em;
 }
 
 .related-artists--h3 {
@@ -90,30 +92,13 @@ h3 {
     border: 0.25em solid black;
 }
 
-
-
-/* .searchbar {
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: rgba(255,255,255, 0.6);
-}
-
-.searchbar--btn {
-    border-radius: 0 50px 50px 0;
+.circle {
+    width: 7rem;
+    height: 7rem;
     border: 0.25em solid black;
-    color:white;
     background-color: black;
-    padding: 0.25em;
+    border-radius: 50%;
 }
-
-.searchbar--input {
-    border-radius: 50px 0 0 50px;
-    border: 0.25em solid black;
-    padding: 0.25em;
-} */
 
 .searchbar {
     --size: 2.5em;
@@ -188,7 +173,7 @@ h3 {
 }
 
 .searchbar--container {
-    padding: 0 1em;
+    padding: 1em;
     display: flex;
     flex-direction: column;
     overflow: hidden;
