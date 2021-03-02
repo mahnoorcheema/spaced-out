@@ -23,7 +23,8 @@
     "test-client": "react-scripts test",
     "dev-server": "nodemon server/server.js",
     "start-server": "node server/server.js",
-    "dev": "concurrently npm:dev-*"
+    "dev": "concurrently npm:dev-*",
+    "test-server": "node server/manual-tests.js"
   },
   "proxy": "http://localhost:8080",
   "eslintConfig": {
