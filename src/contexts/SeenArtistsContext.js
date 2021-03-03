@@ -17,7 +17,7 @@ const SeenArtistsContext = React.createContext(null);
 SeenArtistsContext.displayName = "SeenArtistsContext";
 
 export const SeenArtistsContextProvider = ({ initialArtists, children }) => {
-    const seenArtistsSet = React.useMemo(() =>
+    const seenArtistsSet = React.useMemo(() => 
         new Set(initialArtists.map(artist => artist.id)),
         [initialArtists]
     );
@@ -25,10 +25,10 @@ export const SeenArtistsContextProvider = ({ initialArtists, children }) => {
     const value = React.useMemo(() => {
         
         const isArtistsUnique = (artist) =>
-            !seenArtistsSet.has(artist.id);
+            !seenArtistsSet.has(artist.artist.id);
         
         const addToSeenArtists = (artist) => 
-            seenArtistsSet.add(artist.id);
+            seenArtistsSet.add(artist.artist.id);
         
         return { isArtistsUnique, addToSeenArtists };
     

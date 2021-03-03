@@ -22,14 +22,12 @@ const ArtistSummary = ({ artist, connectedTracks, depth=1 }) => {
     /** @type{[(ArtistSummary[] | null), Function]} */
     const [relatedArtists, setRelatedArtists] = useState(null)
     const {isArtistsUnique, addToSeenArtists} = useSeenArtists()
-
+    
     const handleGetRelatedArtists = async () => {
-        // const allRelatedArtists = await getFeaturedArtists(artist.id)
-        // const uniqueRelatedArtists = allRelatedArtists.filter(isArtistsUnique)
-        // uniqueRelatedArtists.forEach(addToSeenArtists)
-        // setRelatedArtists(uniqueRelatedArtists)
-        
-        setRelatedArtists(await getFeaturedArtists(artist.id))
+        const allRelatedArtists = await getFeaturedArtists(artist.id)
+        const uniqueRelatedArtists = allRelatedArtists.filter(isArtistsUnique)
+        uniqueRelatedArtists.forEach(addToSeenArtists)
+        setRelatedArtists(uniqueRelatedArtists)
     }
 
     const smallestImage = getSmallestImage(artist.images);
@@ -50,7 +48,7 @@ const ArtistSummary = ({ artist, connectedTracks, depth=1 }) => {
                     </h3>
                     <ul className="related-artists--ul__style" style={{backgroundColor: getBackgroundColor(depth)}}>
                       {relatedArtists.map(artist => (
-                          <li key={artist.id}><ArtistSummary artist={artist.artist} connectedTracks={artist.connectedTracks} depth={depth+1}/></li>
+                          <li key={artist.artist.id}><ArtistSummary artist={artist.artist} connectedTracks={artist.connectedTracks} depth={depth+1}/></li>
                       ))}  
                     </ul>
                 </>
