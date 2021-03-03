@@ -29,7 +29,12 @@ declare global {
         genres: string[]
         images: ImageDescription[]
         followers: any
-        connectedTrack: ConnectedTrack[]
+    }
+
+    type ArtistSummary = {
+        artist: Artist
+        connectedTracks: ConnectedTrack[]
+        depth: number
     }
 
 }
