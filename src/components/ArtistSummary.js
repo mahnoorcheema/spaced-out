@@ -1,15 +1,9 @@
 import React, { useState } from "react"
 import {getRelatedArtists, getFeaturedArtists} from "../helpers/api-helpers"
 import {useSeenArtists} from "../contexts/SeenArtistsContext"
+import { getSmallestImage } from "../helpers/spotify-helpers";
+import TrackDetails from "./TrackDetails";
 
-const getSmallestImage = images => {
-    let smallestSoFar = images[0];
-    images.forEach(image => {
-        if (image.width < smallestSoFar.width)
-            smallestSoFar = image
-    });
-    return smallestSoFar;
-}
 
 const getBackgroundColor = (depth) => {
     const hue = 20 * depth
@@ -25,7 +19,7 @@ const getBackgroundColor = (depth) => {
  * @param {number} props.depth
  */
 const ArtistSummary = ({ artist, connectedTracks, depth=1 }) => {
-    /** @type{[(Artist[] | null), Function]} */
+    /** @type{[(ArtistSummary[] | null), Function]} */
     const [relatedArtists, setRelatedArtists] = useState(null)
     const {isArtistsUnique, addToSeenArtists} = useSeenArtists()
 
@@ -35,24 +29,17 @@ const ArtistSummary = ({ artist, connectedTracks, depth=1 }) => {
         // uniqueRelatedArtists.forEach(addToSeenArtists)
         // setRelatedArtists(uniqueRelatedArtists)
         
-        setRelatedArtists( await getFeaturedArtists(artist.id))
+        setRelatedArtists(await getFeaturedArtists(artist.id))
     }
 
     const smallestImage = getSmallestImage(artist.images);
-    const smallestAlbumImage = connectedTracks ? getSmallestImage(connectedTracks[0].album.images) : null
-    return (
+ return (
         <div id="tree">
             <div className="artist-summary">
                 {smallestImage ? <img className="artist-summary--img__circle" src={smallestImage.url} alt=""/> : <div className="circle"></div>}
                 <div className="artist-summary--details">
                     <p className="artist-summary--title">{artist.name}</p>
-                    <div className="album">
-                        {smallestAlbumImage && <img className="album--image" src={smallestAlbumImage.url} alt=""/>}
-                        <div>
-                            <p className="album--p album--p__song-name"> {connectedTracks ? connectedTracks[0].track.name : ""}</p>
-                            <p className="album--p album--p__album-name">{connectedTracks ? connectedTracks[0].album.name : ""}</p>
-                        </div>
-                    </div>
+                    <TrackDetails connectedTracks={connectedTracks}/>
                 </div>
             </div>
             
