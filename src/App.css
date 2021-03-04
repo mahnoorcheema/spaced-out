@@ -29,9 +29,12 @@ h3 {
 }
 
 .related-artists--ul__style {
+    /* border-radius: 0 0.5em 0.5em; */
     list-style-type: none;
     margin-top: 0;
-    padding: 1em;
+    padding: 0em 2em;
+    margin-left: 0;
+    
 }
 
 .related-artists--h3 {
@@ -39,6 +42,7 @@ h3 {
     display: inline;
     border-radius: 10px 10px 0  0;
     padding: 0 0.5em;
+    margin-left: 1.7em;
 }
 
 .related_artists--btn {
@@ -259,8 +263,8 @@ h3 {
 }
 
 .album--image {
-    width: 3em;
-    height: 3em;
+    width: 4em;
+    height: 4em;
     margin: 0.5em; 
 }
 

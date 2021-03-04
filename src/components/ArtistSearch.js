@@ -6,7 +6,7 @@ const noCleanup = () => { };
 
 const ArtistSearch = ({ onArtistFound }) => {
     const [artistQueryDraft, setArtistQueryDraft] = useState("");
-    const [artistQuery, setArtistQueryDebounced, setArtistQueryImmediate] = useDebouncedState("", 100);
+    const [artistQuery, setArtistQueryDebounced, setArtistQueryImmediate] = useDebouncedState("", 250);
     const [searchResults, setSearchResults] = useState(null);
 
     useEffect(() => {
