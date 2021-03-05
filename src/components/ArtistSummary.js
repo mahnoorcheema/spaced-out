@@ -7,8 +7,16 @@ import TrackDetails from "./TrackDetails";
 
 const getBackgroundColor = (depth) => {
     const hue = 20 * depth
+    const saturation = 70
+    const lightness = 65
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`
+}
+
+const getFontColor = (depth) => {
+    // const hue = (80 * depth ) + 120
+    const hue = (20 * depth) + 50
     const saturation = 100
-    const lightness = 77
+    const lightness = 85
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`
 }
 
