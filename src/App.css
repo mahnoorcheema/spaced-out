@@ -48,11 +48,11 @@ h3 {
 .related_artists--btn {
     border: none;
     color: white;
-    background: linear-gradient(135deg, #000000 0%, #434343 100%);
-    border-radius: 1000px;
+    background: #23278a;
+    border-radius: 2pz;
     margin-left: 1em;
     margin-top: 0.5em;
-    padding: 0.25em 0.5em;
+    padding: 0.25em 1em;
     transition: all 0.3s ease-in-out;
 }
 
@@ -82,18 +82,15 @@ h3 {
     
 }
 
-.artist-summary--title {
-    font-size: xx-large;
-    margin: 0;
-    margin-left: 0.7em;
-}
 
 .artist-summary--img__circle {
-    border-radius: 50%;
+    /* border-radius: 50%; */
     object-fit: cover;
-    width: 7rem;
-    height: 7rem;
-    border: 0.25em solid black;
+    width: 20rem;
+    height: 10rem;
+    /* border: 0.25em solid black; */
+    /* margin-left: 0.5em; */
+    margin: 0;
 }
 
 .circle {
@@ -254,18 +251,20 @@ h3 {
 .album {
     display: flex;
     flex-direction: row;
-    background-color:  rgba(255, 0, 106, 0.5);;
+    /* background-color:  rgba(255, 0, 106, 0.5);; */
+    /* background-color: rgba(255,255,255,0.5);
     align-items: center;
     padding: 0 1em;
     border-radius: 100vh;
-    color: white;
+    color: white; */
 
 }
 
 .album--image {
-    width: 4em;
-    height: 4em;
-    margin: 0.5em; 
+    width: 8rem;
+    height: 8rem;
+    margin: 0.5em;
+    transform: translate(-50%);
 }
 
 .album--p {
@@ -274,13 +273,73 @@ h3 {
 }
 
 .album--p__song-name {
-    font-size: medium;
+    font-size: xx-large;
 
 }
 
 .album--p__album-name {
     font-size: smaller;
     font-style: italic;
-    color: palegreen;
+    color: #23278a;
 
+}
+
+.overlay {
+    position: relative;
+}
+
+.overlay img {
+    /* width: 100%; */
+    /* height: 100%; */
+    object-fit: cover;
+    display: block;
+    object-position: 0 15%
+}
+
+.overlay::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+.color {
+    --toneTwo:#00ff36;
+    --toneOne:#23278a;
+    background-color: var(--toneTwo);
+    /* background-color: rgb(237, 142, 94); */
+}
+
+.color img {
+    mix-blend-mode: multiply;
+    filter: grayscale(100%) contrast(1.1);
+}
+
+.color::after{
+  background-color: var(--toneOne);
+  mix-blend-mode: lighten;
+}
+
+.artist-summary--title {
+    margin: 0;
+    margin-left: 0.7em;
+    font-size: 400%;
+    letter-spacing: 0.125em;
+}
+
+.artist-name {
+    position: relative;
+    transform: translate(-10em, -0.25em);
+}
+
+.stroke {
+    --strokeColor: black;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--strokeColor);
+   
+}
+
+.solid {
+    position: absolute;
 }

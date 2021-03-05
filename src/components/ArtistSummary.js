@@ -43,9 +43,12 @@ const ArtistSummary = ({ artist, connectedTracks, depth=1 }) => {
         <div id="tree">
             <div style={{backgroundColor: getBackgroundColor(depth)}}>
                 <div className="artist-summary">
-                    {smallestImage ? <img className="artist-summary--img__circle" src={smallestImage.url} alt=""/> : <div className="circle"></div>}
+                    {smallestImage ? <div className="overlay color" style={{"--toneTwo": getFontColor(depth)}}><img className="artist-summary--img__circle" src={smallestImage.url} alt=""/></div> : <div className="circle"></div>}
                     <div className="artist-summary--details">
-                        <p className="artist-summary--title">{artist.name}</p>
+                        <div className="artist-name">
+                            <p className="artist-summary--title solid position" style={{color: getFontColor(depth)}}>{artist.name.toUpperCase()}</p>
+                            <p className="artist-summary--title stroke position" style={{"--strokeColor": getFontColor(depth)}}>{artist.name.toUpperCase()}</p>
+                        </div>
                         <TrackDetails connectedTracks={connectedTracks}/>
                     </div>
                 </div>
