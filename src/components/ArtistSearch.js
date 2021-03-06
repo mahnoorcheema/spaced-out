@@ -51,6 +51,7 @@ const ArtistSearch = ({ onArtistFound }) => {
                     placeholder="eg. Grimes"
                     value={artistQueryDraft}
                     aria-label="search for artist"
+                    aria-hidden="true"
                     onChange={(event) => {
                         const { value } = event.currentTarget;
                         setArtistQueryDraft(value);
@@ -58,7 +59,7 @@ const ArtistSearch = ({ onArtistFound }) => {
                     }}
                     onBlur={(event) => setArtistQueryImmediate(event.currentTarget.value)}
                 />
-                <button className="searchbar--btn fas fa-search" type="submit" aria-label="submit search"></button>
+                <button className="searchbar--btn fas fa-search" type="submit" aria-label="submit search" aria-hidden="true"></button>
             </form>
             <div className="searchbar-no-results">
                 {searchResults?.length === 0 && <p>No results found</p>}

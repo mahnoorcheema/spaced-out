@@ -8,15 +8,15 @@ import TrackDetails from "./TrackDetails";
 const getBackgroundColor = (depth) => {
     const hue = 20 * depth
     const saturation = 70
-    const lightness = 65
+    const lightness = 60
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`
 }
 
 const getFontColor = (depth) => {
-    // const hue = (80 * depth ) + 120
-    const hue = (20 * depth) + 50
+    const hue = (1000 * depth ) + 120
+    // const hue = (20 * depth) + 50
     const saturation = 100
-    const lightness = 85
+    const lightness = 90
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`
 }
 
@@ -39,17 +39,23 @@ const ArtistSummary = ({ artist, connectedTracks, depth=1 }) => {
     }
 
     const smallestImage = getSmallestImage(artist.images);
+    const smallestAlbumImage = connectedTracks ? getSmallestImage(connectedTracks[0].album.images) : null
  return (
         <div id="tree">
             <div style={{backgroundColor: getBackgroundColor(depth)}}>
-                <div className="artist-summary">
-                    {smallestImage ? <div className="overlay color" style={{"--toneTwo": getFontColor(depth)}}><img className="artist-summary--img__circle" src={smallestImage.url} alt=""/></div> : <div className="circle"></div>}
-                    <div className="artist-summary--details">
-                        <div className="artist-name">
-                            <p className="artist-summary--title solid position" style={{color: getFontColor(depth)}}>{artist.name.toUpperCase()}</p>
-                            <p className="artist-summary--title stroke position" style={{"--strokeColor": getFontColor(depth)}}>{artist.name.toUpperCase()}</p>
-                        </div>
-                        <TrackDetails connectedTracks={connectedTracks}/>
+                <div className="artist-container">
+                    <h2 className="artist-name" style={{color: getFontColor(depth)}}>{artist.name.toUpperCase()}</h2>
+                    <div className="artist-art overlay color" style={{"--toneTwo": getBackgroundColor(depth)}}>
+                        {smallestImage ? <img className="artist-art--img" src={smallestImage.url} alt=""/> : <div className="artist-art--img no-img-block">A</div>}
+                    </div>
+                    <h2 className="artist-name-outline" style={{"--strokeColor": getFontColor(depth)}}>{artist.name.toUpperCase()}</h2>
+                    <div className="album-art">
+                        {smallestAlbumImage && <img className="album-art--image" src={smallestAlbumImage.url} alt=""/>}
+                    </div>
+                    <div className="song-details">
+                        {console.log(connectedTracks)}
+                        <h3 className="song-name">{connectedTracks ? `"${connectedTracks[0].track.name}"` : ""}</h3>
+                        <p className="album-name">{connectedTracks ? `-${connectedTracks[0].album.name}` : ""}</p>
                     </div>
                 </div>
                 {relatedArtists
@@ -66,7 +72,7 @@ const ArtistSummary = ({ artist, connectedTracks, depth=1 }) => {
                     : <button className="related_artists--btn" onClick={handleGetRelatedArtists}>
                         Get Related Artists
                     </button>
-                }
+                } 
             </div>
         </div>
     )
