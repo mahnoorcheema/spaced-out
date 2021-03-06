@@ -1,20 +1,18 @@
-import React from "react"
+import React, { useState } from "react"
 import { getSmallestImage } from "../helpers/spotify-helpers";
 
 
-const TrackDetails = ({connectedTracks}) => {
-    const smallestAlbumImage = connectedTracks ? getSmallestImage(connectedTracks[0].album.images) : null
+const TrackDetails = ({track, onSelectedTrack}) => {
+    const smallestAlbumImage = track ? getSmallestImage(track.album.images) : null
+
+    const toggleSongDetils = () => onSelectedTrack(track)
+
     return (
-        <>
-         <div className="album-art">
-            {smallestAlbumImage && <img className="album-art--image" src={smallestAlbumImage.url} alt=""/>}
+        <div>
+            <button className="album-art" onClick={toggleSongDetils}>
+                {smallestAlbumImage && <img className="album-art--image" src={smallestAlbumImage.url} alt=""/>}
+            </button>
         </div>
-        <div className="song-details">
-            {console.log(connectedTracks)}
-            <h3 className="song-name">{connectedTracks ? `"${connectedTracks[0].track.name}"` : ""}</h3>
-            <p className="album-name">{connectedTracks ? `-${connectedTracks[0].album.name}` : ""}</p>
-        </div>
-        </>
     )
 }
 

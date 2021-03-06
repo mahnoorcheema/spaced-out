@@ -31,12 +31,10 @@ declare global {
         followers: any
     }
 
-    type ArtistSummary = {
+    type ArtistConnection = {
         artist: Artist
         connectedTracks: ConnectedTrack[]
-        depth: number
     }
-
 }
 
 export {};

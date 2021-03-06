@@ -211,8 +211,8 @@ body, input, button {
 
 .artist-container {
     display: grid;
-    grid-template-rows: 2.5rem 2rem 2rem 2rem 3rem 2rem;
-    grid-template-columns: 12rem 6rem 6rem 8rem 1fr;
+    grid-template-rows: 2.5rem 2rem 2rem 2rem 3rem 2rem 1fr;
+    grid-template-columns: 12rem 6rem 6rem 30rem 1fr;
     padding: 1rem;
     padding-inline-start: 2em;
     padding-block-end: 4em;
@@ -230,9 +230,19 @@ body, input, button {
     margin: 0;
 }
 
-.album-art {
+.tracks {
     grid-column: 3 / span 2;
     grid-row: 5 / span 2;
+    list-style-type: none;
+    display: flex;
+}
+
+.album-art {
+    padding: 0;
+    /* outline: 0; */
+    width: 8rem;
+    height: 8rem;
+    border: none;
 }
 
 .album-art--image {
@@ -273,6 +283,7 @@ body, input, button {
     -webkit-text-stroke: .125rem var(--strokeColor);
     position: relative;
   } 
+
 
 /* ----------------------------------Two-Tone-Artist-Image-------------------------------------- */  
 
