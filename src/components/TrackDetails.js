@@ -8,11 +8,11 @@ const TrackDetails = ({track, onSelectedTrack}) => {
     const toggleSongDetils = () => onSelectedTrack(track)
 
     return (
-        <div>
+        <>
             <button className="album-art" onClick={toggleSongDetils}>
                 {smallestAlbumImage && <img className="album-art--image" src={smallestAlbumImage.url} alt=""/>}
             </button>
-        </div>
+        </>
     )
 }
 

@@ -21,7 +21,7 @@
     "dev-client": "react-scripts start",
     "build-client": "react-scripts build",
     "test-client": "react-scripts test",
-    "dev-server": "nodemon server/server.js",
+    "dev-server": "nodemon server/server.js --inspect",
     "start-server": "node server/server.js",
     "dev": "concurrently npm:dev-*",
     "test-server": "node server/manual-tests.js"

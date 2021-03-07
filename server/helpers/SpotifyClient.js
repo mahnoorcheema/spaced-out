@@ -50,10 +50,14 @@ class SpotifyClient {
 
     
     async fetchWithAuth(path, options = {}) { 
-        if (this.isTokenExpired()) {
+        if (this.isTokenExpired()) 
             await this.updateAccessToken();
-        }
-        const response = await fetch(`${SpotifyClient.BASE_URL}${path}`, {
+        
+        const url = path.startsWith(SpotifyClient.BASE_URL)
+            ? path
+            : `${SpotifyClient.BASE_URL}${path}`;
+        
+        const response = await fetch(url, {
             ...options,
             headers: {
                 ...options.headers,
@@ -63,6 +67,15 @@ class SpotifyClient {
         if (!response.ok) 
             throw new Error(`Spotify request failed with ${response.status}`)
         return await response.json();
+    }
+
+    // https://developer.spotify.com/documentation/web-api/reference/#object-pagingobject
+    async fetchAllWithAuth(path, options, allItems=[]) {
+        const { next, items } = await this.fetchWithAuth(path, options);
+        allItems.push(...items);
+        if (next) 
+            return await this.fetchAllWithAuth(next, options, allItems);
+        return allItems;
     }
 
     isCompilation(album) {
@@ -107,13 +120,14 @@ class SpotifyClient {
      */
     async getAlbumsForArtist(artistId) {
         const params = new URLSearchParams();
-        params.set("include_groups", "album,appears_on")
-        params.set("limit", "50") // TODO: Pagination handling
-        const { items: albums } = await this.fetchWithAuth(`/v1/artists/${artistId}/albums?${params}`);
-        return albums.filter(album => !this.isCompilation(album));
+        params.set("include_groups", "album,single")
+        params.set("market", "US");
+        params.set("limit", "50")
+        const albums = await this.fetchAllWithAuth(`/v1/artists/${artistId}/albums?${params}`);
+        console.log("Album count", albums.length);
+        return albums.filter(album =>!this.isCompilation(album));
     }
 
-    //TODO: Pagination handling
     async getAlbumsDetailed(albumIds) {
         const params = new URLSearchParams();
         params.set("ids", albumIds);
@@ -122,14 +136,18 @@ class SpotifyClient {
     }
 
     async getDetailedAlbumsForArtist(artistId) {
+        const limit = 20
         const albums = await this.getAlbumsForArtist(artistId);
-        const albumIds = albums.map(album => album.id)
-        // Todo: pagination
-        return await this.getAlbumsDetailed(albumIds.slice(0, 19));
+        // const albumIds = albums.map(album => album.id)
+        const albumIds = [...new Map(albums.map(album => [album.name, album.id])).values()]
+        let detailedAlbums = []
+        for (let i = 0; i < albumIds.length; i+=limit){
+             detailedAlbums = [...detailedAlbums, ...await this.getAlbumsDetailed(albumIds.slice(i, i + limit-1))]
+        }
+        return detailedAlbums;
     }
     /**
      * https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-multiple-artists
-     * TODO:pagination handling
      */
     async getArtistsDetailed(artistIds) {
         const params = new URLSearchParams();
@@ -141,6 +159,7 @@ class SpotifyClient {
     async getFeaturedArtists(originArtistId) {
         const detailedAlbums = await this.getDetailedAlbumsForArtist(originArtistId);
         const connectedArtists = {};
+        const limit = 50;
         
         const addToConnectedArtists = ({ artist, track, album }) => {
             if (!(artist.id in connectedArtists)) {
@@ -161,9 +180,12 @@ class SpotifyClient {
         );
         
         const connectedArtistsIds = [...Object.keys(connectedArtists)]
-        // Todo: pagination
-        const artistDetails = await this.getArtistsDetailed(connectedArtistsIds.slice(0, 19));
-
+    
+        let artistDetails = [];
+        for (let i = 0; i < connectedArtistsIds.length; i+=limit) {
+            artistDetails = [...artistDetails, ...await this.getArtistsDetailed(connectedArtistsIds.slice(i, i + limit-1))];
+        }
+        
         return artistDetails.map(artist => ({
             artist,
             connectedTracks: connectedArtists[artist.id].map(({ track, album }) =>
