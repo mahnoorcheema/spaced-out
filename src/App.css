@@ -211,8 +211,8 @@ body, input, button {
 
 .artist-container {
     display: grid;
-    grid-template-rows: 2.5rem 2rem 2rem 2rem 3rem 2rem 1fr;
-    grid-template-columns: 12rem 6rem 6rem 30rem 1fr;
+    grid-template-rows: 2.5rem 2rem 2rem 6rem 3rem 2rem 1fr;
+    grid-template-columns: 12rem 6rem 6rem 1rem 1fr;
     padding: 1rem;
     padding-inline-start: 2em;
     padding-block-end: 4em;
@@ -226,31 +226,9 @@ body, input, button {
 .artist-art--img {
     object-fit: cover;
     width: 24rem;
-    height: 11rem;
+    height: 15rem;
     margin: 0;
 }
-
-.tracks {
-    grid-column: 3 / span 2;
-    grid-row: 5 / span 2;
-    list-style-type: none;
-    display: flex;
-}
-
-.album-art {
-    padding: 0;
-    /* outline: 0; */
-    width: 8rem;
-    height: 8rem;
-    border: none;
-}
-
-.album-art--image {
-    width: 8rem;
-    height: 8rem;
-    position: relative;
-}
-
 
 .artist-name, .artist-name-outline {
     font-size: 6rem;
@@ -262,7 +240,7 @@ body, input, button {
   .song-details {
     padding: 1rem;
     grid-column: 5 / span 1;
-    grid-row: 5 / span 1;
+    grid-row: 4 / span 1;
     align-self: center;
   }
 
@@ -323,4 +301,47 @@ body, input, button {
 
 .no-img-block {
     background-color: var(--toneOne);
+}
+
+/* -------------------------albums----------------------- */
+
+.tracks {
+    grid-column: 3 / span 2;
+    grid-row: 5 / span 2;
+    list-style-type: none;
+    display: flex;
+    /* flex-direction: row-reverse; */
+}
+
+.album-art {
+    padding: 0;
+    /* outline: 0; */
+    width: 8rem;
+    height: 8rem;
+    border: none;
+    /* overflow: hidden; */
+    
+}
+
+.album-art--image {
+    width: 8rem;
+    height: 8rem;
+    position: relative;
+    box-shadow: -7px 0px 14px 1px #1b1b1b;
+}
+
+.tracks--album__li{
+    transition: 0.2s;
+}
+
+.tracks--album__li:hover {
+    transform: translateY(-0.5rem);
+}
+
+.tracks--album__li:hover ~ .tracks--album__li {
+    transform: translateX(2.5rem);
+}
+
+.tracks--album__li:not(:first-child){
+    margin-left: -2rem;
 }

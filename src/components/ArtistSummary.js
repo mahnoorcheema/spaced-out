@@ -65,7 +65,7 @@ const ArtistSummary = ({ artist, connectedTracks, depth=1 }) => {
                         connectedTracks &&
                          <ul className="tracks">
                             {connectedTracks.map(track => (
-                                <li key={track.track.id}><TrackDetails track={track} onSelectedTrack={setSelectedTrack}></TrackDetails></li>
+                                <li className="tracks--album__li" key={track.track.id}><TrackDetails track={track} onSelectedTrack={setSelectedTrack}></TrackDetails></li>
                         ))}
                     </ul>
                     }
