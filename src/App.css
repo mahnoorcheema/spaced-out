@@ -211,8 +211,10 @@ body, input, button {
 
 .artist-container {
     display: grid;
-    grid-template-rows: 2.5rem 2rem 2rem 6rem 3rem 2rem 1fr;
-    grid-template-columns: 12rem 6rem 6rem 1rem 1fr;
+    /* grid-template-rows: 2.5rem 2rem 2rem 6rem 3rem 2rem 1fr;
+    grid-template-columns: 12rem 6rem 6rem 1rem 1fr; */
+    grid-template-rows: 1.7rem 1.3rem 1.3rem 4.5rem 2rem 1.34rem 1fr;
+    grid-template-columns: 8rem 4rem 4rem 10rem 1fr;
     padding: 1rem;
     padding-inline-start: 2em;
     padding-block-end: 4em;
@@ -225,13 +227,13 @@ body, input, button {
 
 .artist-art--img {
     object-fit: cover;
-    width: 24rem;
-    height: 15rem;
+    width: 16rem;
+    height: 10.5rem;
     margin: 0;
 }
 
 .artist-name, .artist-name-outline {
-    font-size: 6rem;
+    font-size: 4rem;
     letter-spacing: 0.125em;
     grid-column: 3 / span 4;
     grid-row: 1 / span 2;
@@ -245,13 +247,14 @@ body, input, button {
   }
 
   .song-name {
-    font-size: 2.5rem;
+    font-size: 1.7rem;
   }
   .album-name {
-    font-size: 1.5rem;
+    font-size: 1rem;
     color: var(--primary);
     font-style: italic;
-    padding-left: 3em;
+    padding-left: 2em;
+    padding-top: 0.5em;
   }
 
   .artist-name-outline {
@@ -310,28 +313,42 @@ body, input, button {
     grid-row: 5 / span 2;
     list-style-type: none;
     display: flex;
-    /* flex-direction: row-reverse; */
+    perspective: -500px;
+    /* transform-style: preserve-3d; */
+}
+
+.album-art, .album-art--image {
+    padding: 0;
+    width: 6rem;
+    height: 6rem;
 }
 
 .album-art {
-    padding: 0;
-    /* outline: 0; */
-    width: 8rem;
-    height: 8rem;
     border: none;
-    /* overflow: hidden; */
-    
+    padding: 0;
+    outline: 0;
 }
 
 .album-art--image {
-    width: 8rem;
-    height: 8rem;
     position: relative;
-    box-shadow: -7px 0px 14px 1px #1b1b1b;
+    /* box-shadow: -7px 0px 14px 1px #1b1b1b; */
 }
 
-.tracks--album__li{
+.album-art:focus {
     transition: 0.2s;
+    outline: 0.25em solid var(--secondary);
+}
+
+.tracks--album__li {
+    transition: 0.2s;
+}
+
+.tracks--album__li:not(:only-child){
+    transition:0.2s;
+    transform:
+      rotateY(50deg)
+      rotateX(10deg)
+      rotateZ(10deg)
 }
 
 .tracks--album__li:hover {
@@ -339,9 +356,9 @@ body, input, button {
 }
 
 .tracks--album__li:hover ~ .tracks--album__li {
-    transform: translateX(2.5rem);
+    transform: translateX(3rem);
 }
 
 .tracks--album__li:not(:first-child){
-    margin-left: -2rem;
+    margin-left: -1.5rem;
 }
